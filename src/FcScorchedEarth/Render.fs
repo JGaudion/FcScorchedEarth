@@ -2,6 +2,7 @@
 
 open Domain
 open TriangleSprite
+open Terrain
 open Geometry
 open OpenTK.Graphics.OpenGL
 
@@ -32,5 +33,14 @@ let private renderTriangleSprite (sprite : TriangleSprite) =
 
     GL.End()
 
+let private renderTerrain (terrain: Terrain) = 
+    PrimitiveType.Lines |> GL.Begin
+
+    for point in terrain.Points do
+        renderPoint(point)
+    
+    GL.End()
+
 let renderState (state: GameState) = 
     renderTriangleSprite state.TriangleSprite
+    renderTerrain state.Terrain
